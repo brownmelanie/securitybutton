@@ -1,11 +1,16 @@
 import { StyleSheet, Image, Pressable, Text, View } from "react-native";
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 
 const iconLogo = require("../assets/logo.png");
 
 export function LoginScreen () {
     return (
         <View style={styles.screen}>
+            <Stack.Screen
+                options={{
+                    header: () => <></>,
+                }}
+            />
             <View style={styles.container}>
 
                 <Image source={iconLogo} style={styles.imgLogo}/>
@@ -64,11 +69,13 @@ const styles = StyleSheet.create({
         color: "#6C6C72",
         borderBottomWidth: 1,
         borderBottomColor: "#6C6C72",
+        fontFamily: "Gotham",
     },
     email: {
         color: "#6C6C72",
         borderBottomWidth: 1,
         borderBottomColor: "#6C6C72",
+        fontFamily: "Gotham",
     },
     containerBtn: {
         alignItems: "center",
@@ -76,7 +83,8 @@ const styles = StyleSheet.create({
     },
     btn: {
         backgroundColor: "#1D1B69",
-        padding: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         borderRadius: 15,
         marginBottom: 10,
     },
@@ -84,8 +92,10 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: "center",
         fontSize: 20,
+        fontFamily: "Gotham",
     },
     btnSubText: {
         color: "#6C6C72",
+        fontFamily: "Gotham",
     }
 })

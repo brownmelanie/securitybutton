@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, Pressable, Text } from "react-native"
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 
 import Navbar from "../components/navbar"
 import Input from "../components/inputUser"
@@ -7,11 +7,14 @@ import Input from "../components/inputUser"
 const homeIcon = require("../assets/home.png")
 const logoIcon = require("../assets/logo.png")
 
-
 export default function User() {
     return(
         <View style={styles.wrapper}>
-            <Navbar text="Mi perfil" icon={homeIcon} destination="/main"/>
+            <Stack.Screen
+                options={{
+                    header: () => <Navbar text="Mi perfil" icon={homeIcon} destination="/main"/>,
+                }}
+            />
             <Image source={logoIcon} style={styles.logoIcon}/>
             <View style={styles.container}>
 
@@ -43,6 +46,7 @@ const styles = StyleSheet.create ({
         height: 100,
         objectFit: "contain",
         alignSelf: "center",
+        marginTop: -20,
     },
     container: {
         backgroundColor: "white",
@@ -58,15 +62,15 @@ const styles = StyleSheet.create ({
     },
     btn: {
         backgroundColor: "#1D1B69",
-        padding: 20,
-        width: 200,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         borderRadius: 15,
-        marginVertical: 20,
+        marginBottom: 50,
     },
     btnText: {
         color: "white",
         textAlign: "center",
         fontSize: 20,
+        fontFamily: "Gotham",
     }
-    
 })

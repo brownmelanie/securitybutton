@@ -35,11 +35,13 @@ const Btn = ({ onPress, backgroundColor, text, imageSource }) => {
     };
 
     return (
+        
         <Pressable
             onPress={handlePress}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
         >
+            
             <Animated.View style={[styles.wrapperCustom, { backgroundColor: animatedBackgroundColor }]}>
                 <View style={styles.wrapperBtn}>
                     <Image source={imageSource}/>
@@ -63,10 +65,10 @@ const styles = StyleSheet.create({
     textBtn: {
       marginLeft: 8,
       fontSize: 20,
-      fontWeight: 'bold',
       color: "white",
       paddingTop: 20,
       textAlign: "center",
+      fontFamily: "GothamBlack",
     },
   });
 

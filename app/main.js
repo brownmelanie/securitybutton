@@ -1,21 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 
 import Btn from '../components/alertButton.jsx';
-import Navbar from '../components/navbar';
 
-const userIcon = require("../assets/user.png")
 const iconIncendio = require("../assets/incendio.png");
 const iconMedico = require("../assets/medico.png");
 const iconPanico= require("../assets/panico.png");
-
 
 export default function Main() {
 
   return (
         <View style={styles.mainContainer}>
-
-          <Navbar text="Mis alertas" icon={userIcon} destination="/user"/>
-          
           <View style={styles.containerBtn}>
               <Btn
                   onPress={() => {}}
@@ -42,9 +36,8 @@ export default function Main() {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 60,
     backgroundColor: "#F3F4F6",
-    minHeight: "100%",
+    minHeight: "95%",
   },
   containerBtn: {
     height: "90%",

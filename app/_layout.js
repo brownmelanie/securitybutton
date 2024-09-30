@@ -1,10 +1,32 @@
-import { View } from "react-native";
-import { Slot } from "expo-router"
+import { View, StyleSheet } from "react-native";
+import { Stack } from "expo-router"
+
+
+import Navbar from "../components/navbar";
+import { FontProvider } from "./fontContext";
+
+const userIcon = require("../assets/user.png")
+
 
 export default function Layout() {
+
     return (
-        <View>
-            <Slot/>
-        </View>
+        <FontProvider>
+            <View style={styles.main}>
+                <Stack
+                    screenOptions={{
+                        headerTitle: "",
+                        header: () => <Navbar text="Mis alertas" icon={userIcon} destination="/user"/>,
+                    }}
+                />
+            </View>
+        </FontProvider>
+        
     )
 }
+
+const styles = StyleSheet.create ({
+    main: {
+        flex: 1,
+    },
+})

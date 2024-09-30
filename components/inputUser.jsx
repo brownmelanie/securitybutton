@@ -14,16 +14,18 @@ const styles = StyleSheet.create ({
         borderBottomWidth: 1,
         borderBlockColor: "#6C6C72",
         width: "80vw",
+        marginTop: 20,
     },
     title: {
         color: "#6C6C72",
+        fontFamily: "Gotham",
     },
     content: {
+        fontFamily: "GothamBold",
         color: "#1D1B69",
-        fontWeight: "bold",
         fontSize: 22,
-        marginTop: 8,
         marginBottom: 5,
+        
     },
 })
 
