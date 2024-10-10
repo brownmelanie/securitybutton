@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { Animated, Pressable, View, Text, Image, StyleSheet, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Btn = ({ onPress, backgroundColor, text, imageSource }) => {
-
     const animatedValue = useRef(new Animated.Value(0)).current;
 
     const animatedBackgroundColor = animatedValue.interpolate({
@@ -27,8 +27,47 @@ const Btn = ({ onPress, backgroundColor, text, imageSource }) => {
         }).start();
     };
 
-    const handlePress = () => {
-        Alert.alert("Alerta iniciada", `Alerta iniciada: ${text}`, [{text: "OK"}]);
+    const handlePress = async () => {
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            
+            if (!token) {
+                Alert.alert('Error', 'No se encontró el token de autenticación, inicia sesión nuevamente');
+                return;
+            }
+
+            const timestamp = new Date().toISOString();
+
+            const data = {
+                token,
+                text,
+                timestamp
+            };
+
+            //solicitud POST al back, fetch("link back api")
+            const response = await fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Alert.alert('Éxito', 'Alerta Iniciada');
+            } else {
+                Alert.alert('Error', result.message || 'Ocurrió un error, intente nuevamente');
+            }
+
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+            Alert.alert('Error', 'No se pudo enviar la información');
+        }
+
+        //llamada a las funciones pasadas como props
         if (onPress) {
             onPress();
         }

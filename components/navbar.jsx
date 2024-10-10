@@ -1,38 +1,35 @@
+import { View, StyleSheet, Text, Image } from "react-native";
+const logo = require("../assets/logo.png")
 
-import { View, StyleSheet, Text, Image, Pressable } from "react-native";
-import { Link } from 'expo-router';
-
-const Navbar = ({text, icon, destination}) => {
+const Navbar = () => {
 
     return (
       <View style={styles.containerNav}>
-        <Text style={styles.subText}>{text}</Text>
-        <Link asChild href={destination}>
-          <Pressable>
-            <Image style={styles.imageNav} source={icon}/>
-          </Pressable>
-        </Link>
+        <Image style={styles.logo} source={logo}/>
+        <Text style={styles.subText}>Mis Alarmas</Text>
       </View>
     )
 }
 
 const styles = StyleSheet.create ({
     containerNav: {
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "space-between",
-        paddingHorizontal: 40,
-        paddingTop: 70,
-        backgroundColor: "#F3F4F6",
+        paddingHorizontal: 20,
+        paddingTop: 50,
+      },
+      logo: {
+        width: 200,
+        height: 100,
+        objectFit: "contain"
       },
       subText: {
-        fontSize: 22,
-        color: "#1D1B69",
-        fontFamily: "GothamBlack",
-      },
-      imageNav: {
-        width: 35,
-        height: 35,
-        objectFit: "contain",
+        fontSize: 18,
+        color: "white",
+        fontFamily: "GothamBold",
+        paddingLeft: 5,
+        borderBottomWidth: 1,
+        borderColor: "white",
       },
 })
 
