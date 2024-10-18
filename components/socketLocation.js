@@ -3,6 +3,7 @@ import * as Location from "expo-location";
 import { API_URL } from "../configAPI";
 
 let socket = null;
+let locationUpdateInterval = null;
 
 export const iniciarSocket = async (API_URL, alertId) => {
     socket = io(API_URL, {
@@ -13,7 +14,7 @@ export const iniciarSocket = async (API_URL, alertId) => {
         console.log('Socket conectado');
     });
 
-    setInterval(async () => {
+    locationUpdateInterval = setInterval(async () => {
         try {
             const location = await Location.getCurrentPositionAsync({});
             const { latitude, longitude } = location.coords;
@@ -27,15 +28,34 @@ export const iniciarSocket = async (API_URL, alertId) => {
         } catch (error) {
             console.error('Error al obtener la ubicación:', error);
         }
-    }, 60000);
+    }, 10000);
+
+    socket.on('disconnect', (reason) => {
+        console.log('Desconectado del servidor:', reason);
+
+        if (reason === 'io server disconnect') {
+            console.log('Conexión cerrada por el servidor, deteniendo actualizaciones de ubicación.');
+            detenerActualizacionesUbicacion();
+        } else {
+            console.log('Intentando reconectar...');
+            socket.connect();
+        }
+    });
 };
 
+const detenerActualizacionesUbicacion = () => {
+    if (locationUpdateInterval) {
+        clearInterval(locationUpdateInterval);
+        locationUpdateInterval = null;
+    }
+};
 
 /*
 export const detenerSocket = () => {
     if (socket) {
+        detenerActualizacionesUbicacion();
         socket.disconnect();
-        console.log('Socket desconectado');
+        console.log('Socket desconectado manualmente');
     }
 };
 */
