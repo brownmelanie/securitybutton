@@ -1,3 +1,8 @@
+LOGIN FUNCIONANDO COPIAR Y PEGAR DESP DE TESTEAR DEMAS PANTALLAS PARA QUE NO SE PUEDA ACCEDER SI ESTAN INPUTS VACIOS O SI SON INCORRECTOS
+
+
+
+
 import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert } from "react-native";
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -20,7 +25,7 @@ export function LoginScreen () {
         if (!email || !password) {
             Alert.alert('Error', 'Por favor, ingrese su email y contraseña.');
             return;
-        }
+          }
 
         try {
           const response = await fetch(`${API_URL}/login`, {
@@ -31,12 +36,11 @@ export function LoginScreen () {
             body: JSON.stringify({ email, password }),
           });
     
-          const {accessToken, refreshToken} = await response.json();
+          const data = await response.json();
     
           if (response.ok) {
-            await AsyncStorage.setItem('accessToken', accessToken);
-            await AsyncStorage.setItem('refreshToken', refreshToken);
-            console.log(accessToken, refreshToken);
+            await AsyncStorage.setItem('userToken', data.token);
+            console.log('Token guardado:', data.token);
                 router.push("/main")
           } else {
             Alert.alert(
@@ -83,11 +87,9 @@ export function LoginScreen () {
                 </View>
         
                 <View style={styles.containerBtn}>
-
-                        <Pressable style={styles.btn} onPress={handleLogin}>
-                            <Text style={styles.btnText}>Iniciar Sesión</Text>
-                        </Pressable>
-
+                    <Pressable style={styles.btn} onPress={handleLogin}>
+                        <Text style={styles.btnText}>Iniciar Sesión</Text>
+                    </Pressable>
                 </View>
 
             </View>

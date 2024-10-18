@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, View, Text, Image, ImageBackground} from 'react-native';
 
 import Btn from '../components/alertButton.jsx';
@@ -7,7 +8,6 @@ const iconPanico = require("../assets/panicoBTN.png");
 const iconMedico = require("../assets/medico.png");
 
 const logo = require("../assets/logo.png")
-
 const backgroundImg = require("../assets/background.png")
 
 export default function Main() {
@@ -23,19 +23,22 @@ export default function Main() {
                 <Btn
                     onPress={() => {}}
                     backgroundColor={{ pressed: '#c0d7fd', default: '#fe0000' }}
-                    text="PÁNICO"
+                    text="PANICO"
+                    displayText="PÁNICO"
                     imageSource={iconPanico}
                 />
                 <Btn
                     onPress={() => {}}
                     backgroundColor={{ pressed: "#fdaea9", default: "#ffcc00"}}
                     text="INCENDIO"
+                    displayText="INCENDIO"
                     imageSource={iconIncendio}
                 />
                 <Btn
                     onPress={() => {}}
                     backgroundColor={{ pressed: '#fdecbe', default: '#0000fe'}}
                     text="ASISTENCIA"
+                    displayText="ASISTENCIA"
                     imageSource={iconMedico}
                 />
             </View>
