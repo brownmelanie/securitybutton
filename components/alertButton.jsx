@@ -35,24 +35,25 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
             const refreshToken = await AsyncStorage.getItem('refreshToken');
     
             if (!refreshToken) {
-                throw new Error('No se encontró el refresh token. Inicie sesión nuevamente.');
+                throw new Error('Ocurrió un error, inicie sesión nuevamente.');
             }
-    
-            //consultar ENDPOINT
-            const response = await fetch(`${API_URL}`, {
+            
+            console.log("renovando alerta")
+            const response = await fetch(`${API_URL}/refresh`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ token: refreshToken }),
+                body: JSON.stringify({ refreshToken }),
             });
     
             const data = await response.json();
-    
+            console.log("respondio el endpoint");
             if (response.ok) {
-                const newAccessToken = data.accessToken;
-                await AsyncStorage.setItem('accessToken', newAccessToken);
-                return newAccessToken;
+                const {accessToken, refreshToken} = data;
+                await AsyncStorage.setItem('accessToken', accessToken);
+                await AsyncStorage.setItem('refreshToken', refreshToken);
+                console.log("tokens actualizados")
             } else {
                 throw new Error('Inicie sesión nuevamente');
             }
@@ -65,12 +66,6 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
 
     const handlePress = async () => {
         try {
-            const accessToken = await AsyncStorage.getItem('accessToken');
-
-            if (!accessToken) {
-                Alert.alert("Error", "No se encontró el token de usuario. Inicie sesión nuevamente");
-                return;
-            }
 
             const { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
@@ -81,7 +76,14 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
             const { latitude, longitude } = location.coords;
 
 
-            const enviarAlerta = async (accessToken) => {
+            const enviarAlerta = async () => {
+                const accessToken = await AsyncStorage.getItem('accessToken');
+
+                if (!accessToken) {
+                    Alert.alert("Error", "No se encontró el token de usuario. Inicie sesión nuevamente");
+                    return;
+                }
+
                 const response = await fetch(`${API_URL}/alerts`, {
                     method: 'POST',
                     headers: {
@@ -100,9 +102,9 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
                     Alert.alert("Alerta iniciada", `Alerta de tipo ${text} enviada con éxito.`);
                     setAlertId(data.id);
                     iniciarSocket(API_URL, data.id);
-                } else if (response.status === 401) {
-                    accessToken = await refreshAccessToken();
-                    await enviarAlerta(accessToken);
+                } else if (response.status === 403) {
+                    await refreshAccessToken();
+                    await enviarAlerta();
                 } else {
                     const errorMessage = Array.isArray(data.message)
                         ? data.message.join(', ')
@@ -110,7 +112,7 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
                     Alert.alert(`Error ${response.status}`, errorMessage);
                 }
             };
-            await enviarAlerta(accessToken);
+            await enviarAlerta();
         } catch (error) {
             console.error('Error al enviar la alerta:', error);
             Alert.alert('Error', 'No se pudo enviar la alerta, intente nuevamente.');
@@ -140,18 +142,21 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
 const styles = StyleSheet.create({
     wrapperCustom: {
       borderRadius: 20,
-      padding: 30,
+      height: 170,
       margin: 10,
       elevation: 8,
     },
     wrapperBtn: {
+        flex: 1,
       alignItems: 'center',
+      justifyContent: "center",
+
     },
     textBtn: {
       marginLeft: 8,
       fontSize: 20,
       color: "white",
-      paddingTop: 20,
+      paddingTop: 10,
       textAlign: "center",
       fontFamily: "GothamBlack",
     },

@@ -13,13 +13,19 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "NSLocationWhenInUseUsageDescription": "Esta app requiere acceso a tu ubicación para mejorar la experiencia del usuario.","NSLocationAlwaysUsageDescription": "Esta app requiere acceso constante a tu ubicación."
     },
     "android": {
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.postadigital.SecurityButton"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -28,6 +34,11 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "32c34a30-26be-48a9-a05a-a67dfa37894b"
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert } from "react-native";
+import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -52,8 +52,16 @@ export function LoginScreen () {
         }
       };
 
+      //input email y pass mas anchos
+
     return (
         <ImageBackground source={background} style={styles.backgroundImg}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0}
+            >
+
             <Stack.Screen
                 options={{
                     header: () => <></>,
@@ -64,7 +72,7 @@ export function LoginScreen () {
                 <Image source={iconLogo} style={styles.imgLogo}/>
 
                 <View style={styles.inputCont}>
-                    <Text style={styles.inputText}>INGRESAR</Text>
+                    
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
@@ -91,16 +99,18 @@ export function LoginScreen () {
                 </View>
 
             </View>
+            </KeyboardAvoidingView>
         </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        marginVertical: 90,
         backgroundColor: "white",
         borderRadius: 15,
         width: "80%",
-        height: "80%",
         justifyContent: "space-between",
         alignItems: "center",
     },
@@ -108,21 +118,13 @@ const styles = StyleSheet.create({
         width: 250,
         height: 80,
         objectFit: "contain",
-        marginTop: 40,
+        marginTop: 30,
     },
     inputCont: {
         width: "70%",
         height: 150,
         paddingHorizontal: 20,
         paddingVertical: 40,
-    },
-    inputText: {
-        fontFamily: "GothamBold",
-        fontSize: 20,
-        textAlign: "center",
-        marginTop: -80,
-        marginBottom: 50,
-        color: "#1D1B69",
     },
     input: {
         height: 40,

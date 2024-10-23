@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, ImageBackground} from 'react-native';
+import { StyleSheet, View, Text, Image, ImageBackground } from 'react-native';
+
 
 import Btn from '../components/alertButton.jsx';
 
@@ -14,6 +15,7 @@ export default function Main() {
 
   return (
         <ImageBackground source={backgroundImg} style={styles.backgroundImg}>
+          <View style={styles.mainContainer}>
           <View style={styles.containerNav}>
             <Image style={styles.logo} source={logo}/>
             <Text style={styles.subText}>Mis Alarmas</Text>
@@ -42,6 +44,7 @@ export default function Main() {
                     imageSource={iconMedico}
                 />
             </View>
+            </View>
         </ImageBackground>
   );
 }
@@ -49,18 +52,19 @@ export default function Main() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    flexDirection: 'column',
+    paddingTop: 30,
+  },
+  containerNav: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 20,
   },
   containerBtn: {
+    flex: 10,
     justifyContent: "space-evenly",
     marginHorizontal: 20,
     paddingVertical: 30,
-  },
-  containerNav: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 50,
   },
   logo: {
     width: 200,
@@ -79,5 +83,5 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
-  },
+  }
 });
