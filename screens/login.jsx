@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert, KeyboardAvoidingView, Platform, Linking } from "react-native";
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -52,7 +52,11 @@ export function LoginScreen () {
         }
       };
 
-      //input email y pass mas anchos
+      const handleOpenPrivacyPolicy = () => {
+        const url = 'https://drive.google.com/file/d/1B0kYboHKITYTkwYABRVxDheojD5WUISY/view?usp=drive_link';
+        Linking.openURL(url);
+    };
+
 
     return (
         <ImageBackground source={background} style={styles.backgroundImg}>
@@ -91,12 +95,17 @@ export function LoginScreen () {
                 </View>
         
                 <View style={styles.containerBtn}>
-
-                        <Pressable style={styles.btn} onPress={handleLogin}>
-                            <Text style={styles.btnText}>Iniciar Sesión</Text>
-                        </Pressable>
-
+                    <Pressable style={styles.btn} onPress={handleLogin}>
+                        <Text style={styles.btnText}>Iniciar Sesión</Text>
+                    </Pressable>
                 </View>
+
+                <Text style={styles.privacyText}>
+                    Al iniciar sesión aceptas nuestras{' '}
+                    <Text style={styles.linkText} onPress={handleOpenPrivacyPolicy}>
+                        políticas de privacidad
+                    </Text>.
+                </Text>
 
             </View>
             </KeyboardAvoidingView>
@@ -121,7 +130,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     inputCont: {
-        width: "70%",
+        width: "95%",
         height: 150,
         paddingHorizontal: 20,
         paddingVertical: 40,
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         backgroundColor: "#1D1B69",
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         paddingVertical: 10,
         borderRadius: 15,
         marginBottom: 10,
@@ -156,5 +165,16 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         justifyContent: "center",
         alignItems: "center"
+    },
+    privacyText: {
+        textAlign: 'center',
+        marginBottom: -20,
+        color: '#333',
+        fontSize: 12,
+        paddingHorizontal: 25,
+    },
+    linkText: {
+        textDecorationLine: 'underline',
+        color: '#1D1B69',
     }
 })

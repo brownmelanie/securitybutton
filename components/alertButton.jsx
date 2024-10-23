@@ -109,13 +109,14 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
                     const errorMessage = Array.isArray(data.message)
                         ? data.message.join(', ')
                         : data.message || "Ocurrió un error al enviar la alerta. Intente nuevamente.";
-                    Alert.alert(`Error ${response.status}`, errorMessage);
+                    console.log(`Error ${response.status}`, errorMessage)
+                    Alert.alert("Error", "Ocurrió un error al enviar la alerta. Asegurese de no tener alertas activas.");
                 }
             };
             await enviarAlerta();
         } catch (error) {
             console.error('Error al enviar la alerta:', error);
-            Alert.alert('Error', 'No se pudo enviar la alerta, intente nuevamente.');
+            Alert.alert('Error', 'No se pudo enviar la alerta. Asegurese de no tener alertas activas.');
         }
     
         if (onPress) {

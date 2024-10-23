@@ -2,6 +2,7 @@ import io from "socket.io-client";
 import * as Location from "expo-location";
 import { API_URL } from "../configAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 let socket = null;
 let locationUpdateInterval = null;
@@ -48,6 +49,7 @@ export const iniciarSocket = async (API_URL, alertId) => {
 
             if (reason === 'io server disconnect') {
                 console.log('Conexión cerrada por el servidor, deteniendo actualizaciones de ubicación.');
+                Alert.alert("Alerta finalizada", "Alerta cerrada por el servidor, deteniendo actualizaciones de ubicación")
                 detenerActualizacionesUbicacion();
             } else {
                 console.log('Intentando reconectar...');
