@@ -52,7 +52,7 @@ export default function Main() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: 30,
+    marginTop: 30,
   },
   containerNav: {
     flex: 1,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   containerBtn: {
-    flex: 10,
+    flex: 20,
     justifyContent: "space-evenly",
     marginHorizontal: 20,
     paddingVertical: 30,

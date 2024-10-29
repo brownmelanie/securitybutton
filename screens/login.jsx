@@ -100,14 +100,14 @@ export function LoginScreen () {
                     </Pressable>
                 </View>
 
-                <Text style={styles.privacyText}>
+
+            </View>
+            <Text style={styles.privacyText}>
                     Al iniciar sesión aceptas nuestras{' '}
                     <Text style={styles.linkText} onPress={handleOpenPrivacyPolicy}>
                         políticas de privacidad
                     </Text>.
                 </Text>
-
-            </View>
             </KeyboardAvoidingView>
         </ImageBackground>
     )
@@ -116,7 +116,7 @@ export function LoginScreen () {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginVertical: 90,
+        marginVertical: 80,
         backgroundColor: "white",
         borderRadius: 15,
         width: "80%",
@@ -127,11 +127,12 @@ const styles = StyleSheet.create({
         width: 250,
         height: 80,
         objectFit: "contain",
-        marginTop: 30,
+
     },
     inputCont: {
+
         width: "95%",
-        height: 150,
+        height: 210,
         paddingHorizontal: 20,
         paddingVertical: 40,
     },
@@ -168,7 +169,8 @@ const styles = StyleSheet.create({
     },
     privacyText: {
         textAlign: 'center',
-        marginBottom: -20,
+        marginBottom: 20,
+        marginHorizontal: 30,
         color: '#333',
         fontSize: 12,
         paddingHorizontal: 25,

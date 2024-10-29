@@ -143,7 +143,7 @@ const Btn = ({ onPress, backgroundColor, text, imageSource, displayText }) => {
 const styles = StyleSheet.create({
     wrapperCustom: {
       borderRadius: 20,
-      height: 170,
+      height: 140,
       margin: 10,
       elevation: 8,
     },
