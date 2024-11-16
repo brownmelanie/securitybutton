@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, ImageBackground } from 'react-native';
 
-
 import Btn from '../components/alertButton.jsx';
 
 const iconIncendio = require("../assets/incendio.png");
@@ -52,7 +51,7 @@ export default function Main() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 50,
   },
   containerNav: {
     flex: 1,

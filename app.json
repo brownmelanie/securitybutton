@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.postadigital.SecurityButton"
+      "package": "com.postadigital.SecurityButton",
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png",

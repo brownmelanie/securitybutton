@@ -1,6 +1,6 @@
 import { StyleSheet, Image, Pressable, Text, View, TextInput, ImageBackground, Alert, KeyboardAvoidingView, Platform, Linking } from "react-native";
 import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { API_URL } from "../configAPI"
@@ -14,6 +14,10 @@ export function LoginScreen () {
     const [password, setPassword] = useState("");
     const router = useRouter();
 
+    useEffect(() => {
+        const checkSessio = checkSession(router);
+        checkSession();
+    }, []);
 
     const handleLogin = async () => {
 
@@ -31,17 +35,17 @@ export function LoginScreen () {
             body: JSON.stringify({ email, password }),
           });
     
-          const {accessToken, refreshToken} = await response.json();
-    
           if (response.ok) {
+            const {accessToken, refreshToken} = await response.json();
             await AsyncStorage.setItem('accessToken', accessToken);
             await AsyncStorage.setItem('refreshToken', refreshToken);
             console.log(accessToken, refreshToken);
                 router.push("/main")
           } else {
+            console.log(response.text())
             Alert.alert(
                 `Error ${response.status}`,
-                data.message || 'El email o contraseña ingresados son incorrectos. Intente nuevamente'
+                 'El email o contraseña ingresados son incorrectos. Intente nuevamente'
               );
           }
         } catch (error) {
@@ -51,6 +55,9 @@ export function LoginScreen () {
           );
         }
       };
+
+    
+          
 
       const handleOpenPrivacyPolicy = () => {
         const url = 'https://drive.google.com/file/d/1B0kYboHKITYTkwYABRVxDheojD5WUISY/view?usp=drive_link';
@@ -180,3 +187,12 @@ const styles = StyleSheet.create({
         color: '#1D1B69',
     }
 })
+function checkSession(router) {
+    return async () => {
+        const token = await AsyncStorage.getItem('accessToken');
+        if (token) {
+            router.push("/main");
+        }
+    };
+}
+
